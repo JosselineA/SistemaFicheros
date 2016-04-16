@@ -7,15 +7,10 @@ package sistemaficheros;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
@@ -29,17 +24,16 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     TextField tam;
     @FXML
-    TextField sect;
+    TextField sect, bytesSec;
     @FXML
     Button acept;
-    int sector = 128;
-
+    
+    sectorArranque sA;
     @FXML
     public void setInfo() {
-        double x = Math.round(2.2);
-        System.out.println("value" + tipoCB.getValue());
         double tamano = Double.parseDouble(tam.getText());
         int sectores = Integer.parseInt(sect.getText());
+        int sector = Integer.parseInt(bytesSec.getText());
         String tipo = (String) tipoCB.getValue();
         double tamanoSF;
         double FAT;
@@ -56,12 +50,7 @@ public class FXMLDocumentController implements Initializable {
                 ocupado=(1+FAT+Dir)/sectores;
                 total=secPC-ocupado;
                 System.out.println("gb");
-                System.out.println(tamanoSF + " sectores");
-                System.out.println(secPC + " clusters");
-                System.out.println("FAT " + FAT+" sectores " + (FAT/sectores)+" clusters");
-                System.out.println("Directorio " + Dir+" sectores "+(Dir/sectores)+" clusters");
-                System.out.println("Clusters disponibles: "+total);
-                System.out.println("Ocupado " + ocupado +" sectores");
+                sA= new sectorArranque(tamanoSF, secPC, FAT, Dir, Math.ceil(total), Math.ceil(ocupado), sectores,sector);
                 break;
             case "MB":
                 tamanoSF = (tamano * 1048576)/sector;
@@ -71,12 +60,7 @@ public class FXMLDocumentController implements Initializable {
                 ocupado=(1+FAT+Dir)/sectores;
                 total=secPC-ocupado;
                 System.out.println("mb");
-                System.out.println(tamanoSF + " sectores");
-                System.out.println(secPC + " clusters");
-                System.out.println("FAT " + FAT+" sectores " + (FAT/sectores)+" clusters");
-                System.out.println("Directorio " + Dir+" sectores "+(Dir/sectores)+" clusters");
-                System.out.println("Clusters disponibles: "+total);
-                System.out.println("Ocupado " + ocupado +" sectores");
+                sA= new sectorArranque(tamanoSF, secPC, FAT, Dir, total, ocupado, sectores,sector);
                 break;
             case "KB":
                 tamanoSF = (tamano * 1024)/sector;
@@ -86,12 +70,7 @@ public class FXMLDocumentController implements Initializable {
                 ocupado=(1+FAT+Dir)/sectores;
                 total=secPC-ocupado;
                 System.out.println("kb");
-                System.out.println(tamanoSF + " sectores");
-                System.out.println(secPC + " clusters");
-                System.out.println("FAT " + FAT+" sectores " + (FAT/sectores)+" clusters");
-                System.out.println("Directorio " + Dir+" sectores "+(Dir/sectores)+" clusters");
-                System.out.println("Clusters disponibles: "+total);
-                System.out.println("Ocupado " + ocupado +" sectores");
+                sA= new sectorArranque(tamanoSF, secPC, FAT, Dir, total, ocupado, sectores,sector);
                 break;
             case "Bytes":
                 tamanoSF = (tamano)/sector;
@@ -101,22 +80,16 @@ public class FXMLDocumentController implements Initializable {
                 ocupado=(1+FAT+Dir)/sectores;
                 total=secPC-ocupado;
                 System.out.println("bytes");
-                System.out.println(tamanoSF + " sectores");
-                System.out.println(secPC + " clusters");
-                System.out.println("FAT " + FAT+" sectores " + (FAT/sectores)+" clusters");
-                System.out.println("Directorio " + Dir+" sectores "+(Dir/sectores)+" clusters");
-                System.out.println("Clusters disponibles: "+total);
-                System.out.println("Ocupado " + ocupado +" sectores");
+                sA= new sectorArranque(tamanoSF, secPC, FAT, Dir, total, ocupado, sectores,sector);
                 break;
             default:
                 break;
         }
-
+        
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
  
     }
-
 }

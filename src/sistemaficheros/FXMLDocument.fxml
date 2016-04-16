@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="299.0" prefWidth="437.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaficheros.FXMLDocumentController">
     <children>
-        <AnchorPane fx:id="informacion" prefHeight="310.0" prefWidth="437.0">
+        <AnchorPane fx:id="informacion" prefHeight="368.0" prefWidth="437.0">
             <children>
                 <Text layoutX="95.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tamaño">
                     <font>
@@ -19,12 +19,6 @@
                     </font>
                 </Text>
                 <TextField fx:id="tam" layoutX="164.0" layoutY="135.0" />
-                <TextField fx:id="sect" layoutX="164.0" layoutY="194.0" />
-                <Text layoutX="27.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sectores p/ cluster">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Text>
                 <ChoiceBox fx:id="tipoCB" layoutX="333.0" layoutY="135.0" prefHeight="25.0" prefWidth="90.0">
                     <items>
                          <FXCollections fx:factory="observableArrayList">
@@ -35,7 +29,14 @@
                         </FXCollections>
                     </items>
                 </ChoiceBox>
-            <Button fx:id="acept" layoutX="185.0" layoutY="253.0" mnemonicParsing="false" onAction="#setInfo" text="Aceptar">
+                <TextField fx:id="sect" layoutX="164.0" layoutY="194.0" />
+                <Text layoutX="27.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sectores p/ cluster">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Text>
+            <TextField fx:id="bytesSec" layoutX="164.0" layoutY="251.0" />
+            <Button fx:id="acept" layoutX="185.0" layoutY="307.0" mnemonicParsing="false" onAction="#setInfo" text="Aceptar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Button>
@@ -50,6 +51,11 @@
                </font>
             </Text>
             <TextField disable="true" layoutX="164.0" layoutY="78.0" text="FAT8" />
+            <Text layoutX="54.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bytes p/sector">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
             </children>
         </AnchorPane>
     </children>
