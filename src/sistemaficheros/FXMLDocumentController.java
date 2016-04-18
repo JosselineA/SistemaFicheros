@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -20,13 +21,14 @@ import javafx.scene.control.TextField;
 public class FXMLDocumentController implements Initializable {
 
     @FXML
-    ChoiceBox tipoCB;
+    ChoiceBox tipoCB, tipoAr, tipoTam, ordenar;
     @FXML
     TextField tam;
     @FXML
-    TextField sect, bytesSec;
+    TextField sect, bytesSec, nameAr, nameDel, tamAr;
     @FXML
     Button acept;
+    @FXML AnchorPane directorio, informacion;
     
     sectorArranque sA;
     @FXML
@@ -85,7 +87,16 @@ public class FXMLDocumentController implements Initializable {
             default:
                 break;
         }
-        
+        informacion.setVisible(false);
+        directorio.setVisible(true);
+    }
+    
+    @FXML public void regresar(){
+        informacion.setVisible(true);
+        directorio.setVisible(false);
+    }
+    
+    @FXML public void getDatosArch(){
     }
 
     @Override

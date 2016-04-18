@@ -4,14 +4,17 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="299.0" prefWidth="437.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaficheros.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="580.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaficheros.FXMLDocumentController">
     <children>
-        <AnchorPane fx:id="informacion" prefHeight="368.0" prefWidth="437.0">
+        <AnchorPane fx:id="informacion" layoutX="176.0" layoutY="113.0" prefHeight="337.0" prefWidth="457.0">
             <children>
                 <Text layoutX="95.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tamaño">
                     <font>
@@ -58,5 +61,90 @@
             </Text>
             </children>
         </AnchorPane>
+      <AnchorPane fx:id="directorio" prefHeight="580.0" prefWidth="809.0" visible="false">
+         <children>
+            <TableView prefHeight="412.0" prefWidth="809.0">
+              <columns>
+                <TableColumn prefWidth="313.0" text="Nombre" />
+                <TableColumn prefWidth="203.0" text="Fecha de modificación" />
+                  <TableColumn prefWidth="151.0" text="Tipo" />
+                  <TableColumn prefWidth="141.0" text="Tamaño" />
+              </columns>
+            </TableView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="146.0" layoutX="33.0" layoutY="426.0" stroke="#d3d3d3" strokeType="INSIDE" width="353.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="19.0" layoutX="55.0" layoutY="416.0" stroke="WHITESMOKE" strokeType="INSIDE" width="134.0" />
+            <TextField fx:id="nameAr" layoutX="122.0" layoutY="439.0" />
+            <Text layoutX="49.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="tamAr" layoutX="122.0" layoutY="486.0" />
+            <Text layoutX="49.0" layoutY="503.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tamaño">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="tipoTam" layoutX="292.0" layoutY="488.0" prefHeight="25.0" prefWidth="72.0">
+                 <items>
+                         <FXCollections fx:factory="observableArrayList">
+                        <String fx:id="gB" fx:value="GB" />
+                        <String fx:id="mB" fx:value="MB" />
+                        <String fx:id="kB" fx:value="KB" />
+                        <String fx:id="bytes" fx:value="Bytes" />
+                        </FXCollections>
+                    </items>
+            </ChoiceBox>
+            <Button layoutX="292.0" layoutY="439.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Nuevo" />
+            <Text layoutX="49.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="tipoAr" layoutX="122.0" layoutY="534.0" prefWidth="150.0">
+                <items>
+                         <FXCollections fx:factory="observableArrayList">
+                        <String fx:id="Texto" fx:value="Texto" />
+                        <String fx:id="Carpeta" fx:value="Carpeta" />
+                        </FXCollections>
+                    </items>
+            </ChoiceBox>
+            <Text layoutX="413.0" layoutY="448.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ordenar por">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="ordenar" layoutX="503.0" layoutY="431.0" prefHeight="25.0" prefWidth="104.0">
+                <items>
+                         <FXCollections fx:factory="observableArrayList">
+                        <String fx:id="nombreAr" fx:value="Nombre" />
+                         <String fx:id="fechaAr" fx:value="Fecha de modificación" />
+                        <String fx:id="tipoArc" fx:value="Tipo de Archivo" />
+                         <String fx:id="tamArc" fx:value="Tamaño de Archivo" />
+                        </FXCollections>
+                    </items>
+            </ChoiceBox>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="49.0" layoutX="410.0" layoutY="484.0" stroke="#d3d3d3" strokeType="INSIDE" width="353.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="19.0" layoutX="432.0" layoutY="475.0" stroke="WHITESMOKE" strokeType="INSIDE" width="163.0" />
+            <Button layoutX="655.0" layoutY="499.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Eliminar" />
+            <Text layoutX="63.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Crear nuevo Archivo">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="nameDel" layoutX="491.0" layoutY="499.0" />
+            <Text layoutX="418.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text layoutX="438.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eliminar Archivo Existente">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Button layoutX="486.0" layoutY="543.0" mnemonicParsing="false" onAction="#regresar" prefHeight="25.0" prefWidth="199.0" text="Regresar" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>
