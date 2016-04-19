@@ -7,7 +7,7 @@ package sistemaficheros;
 
 /**
  *
- * @author AcerV3
+ *  @author Josseline, Hugo, Javier
  */
 public class sectorArranque {
 

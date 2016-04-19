@@ -10,7 +10,7 @@ import javafx.beans.property.StringProperty;
 
 /**
  *
- * @author AcerV3
+ *  @author Josseline, Hugo, Javier
  */
 public class FATdir {
     StringProperty Numero;

@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sistemaficheros;
 
-import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,7 +22,7 @@ import javafx.scene.layout.AnchorPane;
 
 /**
  *
- * @author AcerV3
+ * @author Josseline, Hugo, Javier
  */
 public class FXMLDocumentController implements Initializable {
 
@@ -37,7 +31,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     TextField tam, BPS, SPC, ST, CT, FS, FC, CD, CO, SD, SO;
     @FXML
-    TextField sect, bytesSec, nameAr, nameDel, tamAr;
+    TextField sect, bytesSec, nameAr, nameDel, tamAr, DirS, DirC;
     @FXML
     Button acept;
     @FXML
@@ -56,6 +50,7 @@ public class FXMLDocumentController implements Initializable {
     double ocupaC = 0;
     double ocupaS = 0;
     double SecDis = 0;
+   String[] tamFileD = new String[2];
     sectorArranque sA;
     double ClustersOc = 0;
     double ClustersDisp = 0;
@@ -87,7 +82,7 @@ public class FXMLDocumentController implements Initializable {
         double tamanoFile = 0;
         double oc = 0;
         double tamano = Double.parseDouble(tamAr.getText());
-        double t2 = ClustersDisp - tamano;
+        
         double cantClusters = 0;
         switch (tipo) {
             case "GB":
@@ -108,7 +103,8 @@ public class FXMLDocumentController implements Initializable {
             default:
                 break;
         }
-        if (tamanoFile > t2) {
+        double t2 = ClustersDisp - tamano;
+        if ((tamanoFile/tamCluster) > t2) {
             Alert al = new Alert(AlertType.ERROR);
             al.setContentText("No hay suficiente espacio");
             al.showAndWait();
@@ -145,7 +141,7 @@ public class FXMLDocumentController implements Initializable {
                 break;
         }
 
-        cantClusters = tamanoFile / tamCluster;
+        cantClusters = Math.ceil(tamanoFile) / Math.ceil(tamCluster);
 
         ClustersOc = Math.ceil(ClustersOc) + Math.ceil(ocupaC) + Math.ceil(cantClusters);
         cantSec = cantClusters * Double.parseDouble(bytesSec.getText());
@@ -227,13 +223,53 @@ public class FXMLDocumentController implements Initializable {
         for (int i = 0; i < tablaDirectorio.size(); i++) {
             directorio aux = tablaDirectorio.get(i);
             if (aux.getNombre().equals(nombre)) {
+                tamFileD =aux.getTamano().split(" ");
+                        System.out.println(tamFileD[0]);
+                        System.out.println(tamFileD[1]);
+                        tamFileDel(tamFileD[1], tamFileD[0]);
                 tablaDirectorio.remove(i);
                 tablaDir.setItems(tablaDirectorio);
                 delete(nombre);
+                CO.setText(ClustersOc + "");
+            CD.setText(ClustersDisp + "");
                 return;
             }
         }
 
+    }
+    
+    public void tamFileDel(String tipo, String tam) {
+        double tamanoFile = 0;
+        double oc = 0;
+        double cantSec = 0;
+        double tamano = Double.parseDouble(tam);
+        double cantClusters = 0;
+        switch (tipo) {
+            case "GB":
+                tamanoFile = (tamano * 1073741824);
+                break;
+            case "MB":
+                tamanoFile = (tamano * 1048576);
+
+                break;
+            case "KB":
+                tamanoFile = (tamano * 1024);
+
+                break;
+            case "Bytes":
+                tamanoFile = (tamano);
+
+                break;
+            default:
+                break;
+        }
+
+        cantClusters = tamanoFile / tamCluster;
+
+        ClustersOc = Math.ceil(ClustersOc) - Math.ceil(ocupaC) - Math.ceil(cantClusters);
+        ClustersDisp = Math.ceil(ClustersDisp) + Math.ceil(cantClusters);
+        System.out.println("Cantidad de Clusters " + Math.ceil(cantClusters));
+        guardarFat((int) Math.ceil(cantClusters), nameAr.getText());
     }
 
     public void delete(String file) {
@@ -245,7 +281,10 @@ public class FXMLDocumentController implements Initializable {
                 objeto.setNFile("--");
                 tablaFat.add(i, objeto);
                 FatDir.setItems(tablaFat);
-
+                  FatDir.getColumns().get(1).setVisible(false);
+                    FatDir.getColumns().get(1).setVisible(true);
+                    FatDir.getColumns().get(2).setVisible(false);
+                    FatDir.getColumns().get(2).setVisible(true);
             }
 
         }
@@ -270,16 +309,16 @@ public class FXMLDocumentController implements Initializable {
             case "GB":
 
                 tamanoSF = (tamano * 1073741824) / 128;
-                FAT = tamanoSF / sector;
-                secPC = tamanoSF / sectores;
+                FAT = Math.ceil(tamanoSF) / Math.ceil(sector);
+                secPC = (Math.ceil(tamanoSF) / Math.ceil(sectores));
                 Dir = (secPC * 32) / sector;
-                ocupado = (1 + FAT + Dir) / sectores;
-                total = secPC - ocupado;
-                t = (1 + FAT + Dir);
-                this.tamCluster = sector * sectores;
+                ocupado = (sectores +Math.ceil(FAT) + Math.ceil(Dir) )/ Math.ceil(sectores);
+                total = Math.ceil(secPC) - Math.ceil(ocupado);
+                t = (sectores + Math.ceil(FAT) + Math.ceil(Dir));
+                this.tamCluster = Math.ceil(sector) * Math.ceil(sectores);
                 System.out.println("gb");
-                sA = new sectorArranque(tamanoSF, secPC, FAT, Dir, Math.ceil(total), Math.ceil(ocupado), sectores, sector);
-                setInfoV(tamanoSF, secPC, FAT, Dir, Math.ceil(total), Math.ceil(ocupado), sectores, sector);
+                sA = new sectorArranque(Math.ceil(tamanoSF), Math.ceil(secPC), Math.ceil(FAT), Math.ceil(Dir), Math.ceil(total), Math.ceil(ocupado), Math.ceil(sectores), sector);
+                setInfoV(Math.ceil(tamanoSF), Math.ceil(secPC), Math.ceil(FAT), Math.ceil(Dir), Math.ceil(total), Math.ceil(ocupado), Math.ceil(sectores), sector);
                 System.out.println("tamaño por cluster " + tamCluster);
                 crearFatTabla((int) Math.ceil(total));
                 ClustersOc = ocupado;
@@ -290,15 +329,15 @@ public class FXMLDocumentController implements Initializable {
             case "MB":
                 tamanoSF = (tamano * 1048576) / sector;
                 FAT = tamanoSF / sector;
-                secPC = tamanoSF / sectores;
+                secPC = (tamanoSF / sectores);
                 Dir = (secPC * 32) / sector;
-                ocupado = (1 + FAT + Dir) / sectores;
+                ocupado = (sectores + FAT + Dir) / sectores;
                 ClustersOc = ocupado;
                 total = secPC - ocupado;
-                t = (1 + FAT + Dir);
+                t = (sectores + FAT + Dir);
                 System.out.println("mb");
-                sA = new sectorArranque(tamanoSF, secPC, FAT, Dir, Math.ceil(total), Math.ceil(ocupado), sectores, sector);
-                setInfoV(tamanoSF, secPC, FAT, Dir, Math.ceil(total), Math.ceil(ocupado), sectores, sector);
+               sA = new sectorArranque(Math.ceil(tamanoSF), Math.ceil(secPC), Math.ceil(FAT), Math.ceil(Dir), Math.ceil(total), Math.ceil(ocupado), Math.ceil(sectores), sector);
+                setInfoV(Math.ceil(tamanoSF), Math.ceil(secPC), Math.ceil(FAT), Math.ceil(Dir), Math.ceil(total), Math.ceil(ocupado), Math.ceil(sectores), sector);
                 this.tamCluster = sector * sectores;
                 ClustersDisp = total;
                 ocupaS = tamanoSF - t;
@@ -309,15 +348,15 @@ public class FXMLDocumentController implements Initializable {
             case "KB":
                 tamanoSF = (tamano * 1024) / sector;
                 FAT = tamanoSF / sector;
-                secPC = tamanoSF / sectores;
+                secPC = (tamanoSF / sectores);
                 Dir = (secPC * 32) / sector;
-                ocupado = (1 + FAT + Dir) / sectores;
+                ocupado = (sectores + FAT + Dir) / sectores;
                 total = secPC - ocupado;
                 ClustersOc = ocupado;
-                t = (1 + FAT + Dir);
+                t = (sectores + FAT + Dir);
                 System.out.println("kb");
-                sA = new sectorArranque(tamanoSF, secPC, FAT, Dir, Math.ceil(total), Math.ceil(ocupado), sectores, sector);
-                setInfoV(tamanoSF, secPC, FAT, Dir, Math.ceil(total), Math.ceil(ocupado), sectores, sector);
+                sA = new sectorArranque(Math.ceil(tamanoSF), Math.ceil(secPC), Math.ceil(FAT), Math.ceil(Dir), Math.ceil(total), Math.ceil(ocupado), Math.ceil(sectores), sector);
+                setInfoV(Math.ceil(tamanoSF), Math.ceil(secPC), Math.ceil(FAT), Math.ceil(Dir), Math.ceil(total), Math.ceil(ocupado), Math.ceil(sectores), sector);
                 this.tamCluster = sector * sectores;
                 ClustersDisp = total;
                 ocupaS = tamanoSF - t;
@@ -328,15 +367,15 @@ public class FXMLDocumentController implements Initializable {
             case "Bytes":
                 tamanoSF = (tamano) / sector;
                 FAT = tamanoSF / sector;
-                secPC = tamanoSF / sectores;
-                Dir = (secPC * 32) / sector;
-                ocupado = (1 + FAT + Dir) / sectores;
+                secPC = (tamanoSF / sectores);
+                Dir = (secPC * 4) / sector;
+                ocupado = (sectores + FAT + Dir) / sectores;
                 total = secPC - ocupado;
                 ClustersOc = ocupado;
-                t = (1 + FAT + Dir);
+                t = (sectores + FAT + Dir);
                 System.out.println("bytes");
-                sA = new sectorArranque(tamanoSF, secPC, FAT, Dir, Math.ceil(total), Math.ceil(ocupado), sectores, sector);
-                setInfoV(tamanoSF, secPC, FAT, Dir, Math.ceil(total), Math.ceil(ocupado), sectores, sector);
+               sA = new sectorArranque(Math.ceil(tamanoSF), Math.ceil(secPC), Math.ceil(FAT), Math.ceil(Dir), Math.ceil(total), Math.ceil(ocupado), Math.ceil(sectores), sector);
+                setInfoV(Math.ceil(tamanoSF), Math.ceil(secPC), Math.ceil(FAT), Math.ceil(Dir), Math.ceil(total), Math.ceil(ocupado), Math.ceil(sectores), sector);
                 this.tamCluster = sector * sectores;
                 System.out.println("tamaño por cluster " + tamCluster);
                 ClustersDisp = total;
@@ -360,9 +399,11 @@ public class FXMLDocumentController implements Initializable {
         ST.setText(tamanoSF + "");
         CT.setText(secPC + "");
         FS.setText(FAT + "");
-        FC.setText((FAT / sectores) + "");
+        FC.setText(Math.ceil((FAT / sectores)) + "");
         CD.setText(total + "");
         CO.setText(ocupado + "");
+        DirS.setText(Dir + "");
+        DirC.setText(Math.ceil((Dir / sectores)) + "");
     }
 
     public void crearFatTabla(int tamano) {
