@@ -12,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="580.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaficheros.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="580.0" prefWidth="1294.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaficheros.FXMLDocumentController">
     <children>
-        <AnchorPane fx:id="informacion" layoutX="176.0" layoutY="113.0" prefHeight="337.0" prefWidth="457.0">
+        <AnchorPane fx:id="informacion" layoutX="419.0" layoutY="95.0" prefHeight="337.0" prefWidth="457.0">
             <children>
                 <Text layoutX="95.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tamaño">
                     <font>
@@ -61,17 +61,17 @@
             </Text>
             </children>
         </AnchorPane>
-      <AnchorPane fx:id="directorio" prefHeight="580.0" prefWidth="809.0" visible="false">
+      <AnchorPane fx:id="directorio" prefHeight="580.0" prefWidth="917.0" visible="false">
          <children>
-            <TableView prefHeight="412.0" prefWidth="809.0">
+            <TableView fx:id="tablaDir" prefHeight="412.0" prefWidth="566.0">
               <columns>
-                <TableColumn prefWidth="313.0" text="Nombre" />
-                <TableColumn prefWidth="203.0" text="Fecha de modificación" />
-                  <TableColumn prefWidth="151.0" text="Tipo" />
-                  <TableColumn prefWidth="141.0" text="Tamaño" />
+                <TableColumn fx:id="tablaNombre" prefWidth="171.0" text="Nombre" />
+                <TableColumn fx:id="tablaFecha" prefWidth="163.0" text="Fecha de modificación" />
+                  <TableColumn fx:id="tablaTipo" prefWidth="120.0" text="Tipo" />
+                  <TableColumn fx:id="tablaTamano" prefWidth="111.0" text="Tamaño" />
               </columns>
             </TableView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="146.0" layoutX="33.0" layoutY="426.0" stroke="#d3d3d3" strokeType="INSIDE" width="353.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="138.0" layoutX="33.0" layoutY="426.0" stroke="#d3d3d3" strokeType="INSIDE" width="438.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="19.0" layoutX="55.0" layoutY="416.0" stroke="WHITESMOKE" strokeType="INSIDE" width="134.0" />
             <TextField fx:id="nameAr" layoutX="122.0" layoutY="439.0" />
             <Text layoutX="49.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
@@ -79,13 +79,13 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <TextField fx:id="tamAr" layoutX="122.0" layoutY="486.0" />
+            <TextField fx:id="tamAr" disable="true" layoutX="122.0" layoutY="486.0" />
             <Text layoutX="49.0" layoutY="503.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tamaño">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <ChoiceBox fx:id="tipoTam" layoutX="292.0" layoutY="488.0" prefHeight="25.0" prefWidth="72.0">
+            <ChoiceBox fx:id="tipoTam" layoutX="292.0" layoutY="486.0" prefHeight="25.0" prefWidth="134.0">
                  <items>
                          <FXCollections fx:factory="observableArrayList">
                         <String fx:id="gB" fx:value="GB" />
@@ -95,13 +95,13 @@
                         </FXCollections>
                     </items>
             </ChoiceBox>
-            <Button layoutX="292.0" layoutY="439.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Nuevo" />
-            <Text layoutX="49.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo">
+            <Button fx:id="NewF" layoutX="122.0" layoutY="527.0" mnemonicParsing="false" onAction="#NewFile" prefHeight="25.0" prefWidth="304.0" text="Nuevo" />
+            <Text layoutX="292.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <ChoiceBox fx:id="tipoAr" layoutX="122.0" layoutY="534.0" prefWidth="150.0">
+            <ChoiceBox fx:id="tipoAr" layoutX="341.0" layoutY="439.0" onMouseEntered="#validaTipo" prefHeight="25.0" prefWidth="89.0">
                 <items>
                          <FXCollections fx:factory="observableArrayList">
                         <String fx:id="Texto" fx:value="Texto" />
@@ -109,41 +109,92 @@
                         </FXCollections>
                     </items>
             </ChoiceBox>
-            <Text layoutX="413.0" layoutY="448.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ordenar por">
+            <Text layoutX="63.0" layoutY="433.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Crear nuevo Archivo">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <ChoiceBox fx:id="ordenar" layoutX="503.0" layoutY="431.0" prefHeight="25.0" prefWidth="104.0">
-                <items>
-                         <FXCollections fx:factory="observableArrayList">
-                        <String fx:id="nombreAr" fx:value="Nombre" />
-                         <String fx:id="fechaAr" fx:value="Fecha de modificación" />
-                        <String fx:id="tipoArc" fx:value="Tipo de Archivo" />
-                         <String fx:id="tamArc" fx:value="Tamaño de Archivo" />
-                        </FXCollections>
-                    </items>
-            </ChoiceBox>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="49.0" layoutX="410.0" layoutY="484.0" stroke="#d3d3d3" strokeType="INSIDE" width="353.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="19.0" layoutX="432.0" layoutY="475.0" stroke="WHITESMOKE" strokeType="INSIDE" width="163.0" />
-            <Button layoutX="655.0" layoutY="499.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Eliminar" />
-            <Text layoutX="63.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Crear nuevo Archivo">
+            <TableView fx:id="FatDir" layoutX="584.0" prefHeight="412.0" prefWidth="315.0">
+              <columns>
+                <TableColumn fx:id="numC" prefWidth="107.0" text="Num. Cluster" />
+                <TableColumn fx:id="Cluster" prefWidth="96.0" text="Cluster" />
+                  <TableColumn fx:id="NomC" prefWidth="111.0" text="Nombre" />
+              </columns>
+            </TableView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="49.0" layoutX="546.0" layoutY="461.0" stroke="#d3d3d3" strokeType="INSIDE" width="353.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="19.0" layoutX="568.0" layoutY="452.0" stroke="WHITESMOKE" strokeType="INSIDE" width="163.0" />
+            <Button layoutX="791.0" layoutY="476.0" mnemonicParsing="false" onAction="#DeleteFile" prefHeight="25.0" prefWidth="72.0" text="Eliminar" />
+            <TextField fx:id="nameDel" layoutX="627.0" layoutY="476.0" />
+            <Text layoutX="554.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <TextField fx:id="nameDel" layoutX="491.0" layoutY="499.0" />
-            <Text layoutX="418.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
+            <Text layoutX="574.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eliminar Archivo Existente">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <Text layoutX="438.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eliminar Archivo Existente">
+            <Button layoutX="622.0" layoutY="520.0" mnemonicParsing="false" onAction="#regresar" prefHeight="25.0" prefWidth="199.0" text="Regresar" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="InfoIm" layoutX="919.0" layoutY="8.0" prefHeight="568.0" prefWidth="371.0" visible="false">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="468.0" layoutX="9.0" layoutY="14.0" stroke="#d3d3d3" strokeType="INSIDE" width="353.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f5f5" height="19.0" layoutX="21.0" layoutY="11.0" stroke="WHITESMOKE" strokeType="INSIDE" width="134.0" />
+            <Text layoutX="48.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Información">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="41.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bytes por Sector">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <Button layoutX="486.0" layoutY="543.0" mnemonicParsing="false" onAction="#regresar" prefHeight="25.0" prefWidth="199.0" text="Regresar" />
+            <Text layoutX="43.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sectores por Cluster">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text layoutX="42.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sectores totales">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text layoutX="42.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clusters totales">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text layoutX="45.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FAT (sectores)">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text layoutX="46.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FAT (clusters)">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text layoutX="43.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clusters Disponibles">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text layoutX="43.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clusters Ocupados">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="BPS" editable="false" layoutX="198.0" layoutY="40.0" />
+            <TextField fx:id="SPC" editable="false" layoutX="198.0" layoutY="97.0" />
+            <TextField fx:id="ST" editable="false" layoutX="198.0" layoutY="153.0" />
+            <TextField fx:id="CT" editable="false" layoutX="198.0" layoutY="208.0" />
+            <TextField fx:id="FC" editable="false" layoutX="198.0" layoutY="319.0" />
+            <TextField fx:id="CD" editable="false" layoutX="198.0" layoutY="376.0" />
+            <TextField fx:id="FS" editable="false" layoutX="198.0" layoutY="264.0" />
+            <TextField fx:id="CO" editable="false" layoutX="197.0" layoutY="430.0" />
          </children>
       </AnchorPane>
     </children>
