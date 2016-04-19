@@ -46,15 +46,15 @@ public class FATdir {
     
     
     
-    public StringProperty numeroProperty(){
+    public StringProperty NumeroProperty(){
         return Numero;
     }
     
-    public StringProperty clusterProperty(){
+    public StringProperty ClusterProperty(){
         return Cluster;
     }
     
-    public StringProperty fileProperty(){
+    public StringProperty NFileProperty(){
         return NFile;
     }
     

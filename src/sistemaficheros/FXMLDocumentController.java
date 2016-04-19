@@ -81,11 +81,7 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    @FXML
-    public void validaTipo() {
-
-    }
-
+  
     public boolean validaTam() {
         String tipo = (String) tipoTam.getValue();
         double tamanoFile = 0;
@@ -185,7 +181,13 @@ public class FXMLDocumentController implements Initializable {
                         tablaFat.remove(i);
                         tablaFat.add(i, objeto);
                     }
+                    
                     FatDir.setItems(tablaFat);
+                    FatDir.getColumns().get(1).setVisible(false);
+                    FatDir.getColumns().get(1).setVisible(true);
+                    FatDir.getColumns().get(2).setVisible(false);
+                    FatDir.getColumns().get(2).setVisible(true);
+ 
                 }
             } else {
                 return true;
@@ -398,9 +400,9 @@ public class FXMLDocumentController implements Initializable {
         tablaFecha.setCellValueFactory(cellData -> cellData.getValue().fechaProperty());
         tablaTipo.setCellValueFactory(cellData -> cellData.getValue().tipoProperty());
         tablaTamano.setCellValueFactory(cellData -> cellData.getValue().tamanoProperty());
-        numC.setCellValueFactory(cellData -> cellData.getValue().numeroProperty());
-        NomC.setCellValueFactory(cellData -> cellData.getValue().fileProperty());
-        Cluster.setCellValueFactory(cellData -> cellData.getValue().clusterProperty());
+        numC.setCellValueFactory(cellData -> cellData.getValue().NumeroProperty());
+        NomC.setCellValueFactory(cellData -> cellData.getValue().NFileProperty());
+        Cluster.setCellValueFactory(cellData -> cellData.getValue().ClusterProperty());
 
         //Checa que se seleciono en el combo box
         tipoAr.valueProperty().addListener(new ChangeListener<String>() {
