@@ -17,9 +17,17 @@ public class directorio {
     StringProperty Fecha;
     StringProperty Tipo;
     StringProperty Tamano;
+    StringProperty CI;
+    StringProperty CF;
     
     public void setNombre(String nombre){
         this.Nombre=new SimpleStringProperty(nombre);
+    }
+    public void setCI(String CI){
+        this.CI=new SimpleStringProperty(CI);
+    }
+    public void setCF(String CF){
+        this.CF=new SimpleStringProperty(CF);
     }
     
     public void setFecha(String fecha){
@@ -36,6 +44,12 @@ public class directorio {
     
     public String getNombre(){
         return Nombre.get();
+    }
+    public String getCI(){
+        return CI.get();
+    }
+    public String getCF(){
+        return CF.get();
     }
     
     public String getFecha(){
@@ -64,5 +78,11 @@ public class directorio {
     
     public StringProperty tamanoProperty(){
         return Tamano;
+    }
+    public StringProperty CIProperty(){
+        return CI;
+    }
+    public StringProperty CFProperty(){
+        return CF;
     }
 }

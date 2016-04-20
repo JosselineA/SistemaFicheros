@@ -40,7 +40,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     TableView<directorio> tablaDir;
     @FXML
-    TableColumn<directorio, String> tablaNombre, tablaFecha, tablaTipo, tablaTamano;
+    TableColumn<directorio, String> tablaNombre, tablaFecha, tablaTipo, tablaTamano, cIn,cFin;
 
     @FXML
     TableView<FATdir> FatDir;
@@ -56,21 +56,25 @@ public class FXMLDocumentController implements Initializable {
     double ClustersDisp = 0;
     ObservableList<directorio> tablaDirectorio = FXCollections.observableArrayList();
     ObservableList<FATdir> tablaFat = FXCollections.observableArrayList();
-
+    String cIni = "";
+    String cFn = "";
     @FXML
     public void NewFile() {
         Date date = new Date();
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         System.out.println("Hora y fecha: " + hourdateFormat.format(date));
         if (validarNombre() && validaTam()) {
+            tamFile();
             directorio Dir = new directorio();
             Dir.setNombre(nameAr.getText());
             Dir.setFecha(hourdateFormat.format(date));
             Dir.setTamano(tamAr.getText() + " " + tipoTam.getValue());
             Dir.setTipo(tipoAr.getValue() + "");
+            Dir.setCF(cFn);
+            Dir.setCI(cIni);
             tablaDirectorio.add(Dir);
             tablaDir.setItems(tablaDirectorio);
-            tamFile();
+            
             CO.setText(ClustersOc + "");
             CD.setText(ClustersDisp + "");
         }
@@ -154,7 +158,9 @@ public class FXMLDocumentController implements Initializable {
     //true si es exitoso
 
     public boolean guardarFat(int cantidad, String file) {
-
+        cFn = "";
+        cIni = "";
+        boolean ba = true;
         for (int i = 1; i < tablaFat.size(); i++) {
             if (cantidad > 0) {
                 FATdir objeto = tablaFat.get(i);
@@ -165,12 +171,14 @@ public class FXMLDocumentController implements Initializable {
                         objeto.setNFile(file);
                         tablaFat.remove(i);
                         tablaFat.add(i, objeto);
-
+                        if(ba)
+                            cIni = i+"";
+                        cFn = i+""; //ultimo
                     } else {
                         int aux = getNextPosicion(i);
-                        if (aux == -1) {
-                            //Ya no hay espacios
-                            return false;
+                        if (ba) {
+                            ba = false;
+                            cIni = i+"";
                         }
                         objeto.setCluster(aux + "");
                         objeto.setNFile(file);
@@ -444,6 +452,8 @@ public class FXMLDocumentController implements Initializable {
         numC.setCellValueFactory(cellData -> cellData.getValue().NumeroProperty());
         NomC.setCellValueFactory(cellData -> cellData.getValue().NFileProperty());
         Cluster.setCellValueFactory(cellData -> cellData.getValue().ClusterProperty());
+        cIn.setCellValueFactory(cellData -> cellData.getValue().CIProperty());
+        cFin.setCellValueFactory(cellData -> cellData.getValue().CFProperty());
 
         //Checa que se seleciono en el combo box
         tipoAr.valueProperty().addListener(new ChangeListener<String>() {
